@@ -183,6 +183,7 @@ local function worker(user_args)
         font = beautiful.get_font(),
         fn_embed = decorate_cell,
         long_weekdays = true,
+        start_sunday = true,
         widget = wibox.widget.calendar.month
     }
 
