@@ -91,11 +91,11 @@ local function worker(user_args)
                 valigh = 'center',
                 layout = wibox.container.place
             },
-            max_value = 100,
-            thickness = 2,
+            max_value = 100.0,
+            thickness = 6,
             start_angle = 4.71238898, -- 2pi*3/4
-            forced_height = 18,
-            forced_width = 18,
+            forced_height = 40,
+            forced_width = 40,
             paddings = 2,
             widget = wibox.container.arcchart,
             set_value = function(self, level)
