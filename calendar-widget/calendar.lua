@@ -197,6 +197,8 @@ local function worker(user_args)
         widget = cal
     }
 
+    popup:connect_signal("mouse::leave", function() popup.visible = false end)
+
     popup:buttons(
             awful.util.table.join(
                     awful.button({}, 4, function()
