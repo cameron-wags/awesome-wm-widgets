@@ -168,8 +168,8 @@ local function worker(user_args)
     local refresh_rate = args.refresh_rate or 1
     local step = args.step or 5
 
-    INC_VOLUME_CMD = 'amixer -D pulse sset Master ' .. step .. '%+'
-    DEC_VOLUME_CMD = 'amixer -D pulse sset Master ' .. step .. '%-'
+    INC_VOLUME_CMD = 'pactl set-sink-volume @DEFAULT_SINK@ +' .. step .. '%'
+    DEC_VOLUME_CMD = 'pactl set-sink-volume @DEFAULT_SINK@ -' .. step .. '%'
 
     if widget_types[widget_type] == nil then
         volume.widget = widget_types['icon_and_text'].get_widget(args.icon_and_text_args)
@@ -188,11 +188,11 @@ local function worker(user_args)
     end
 
     function volume:inc()
-        spawn.easy_async(INC_VOLUME_CMD, function(stdout) update_graphic(volume.widget, stdout) end)
+        spawn.easy_async(INC_VOLUME_CMD, function(stdout) spawn.easy_async( GET_VOLUME_CMD, function(stdout) update_graphic(volume.widget, stdout) end) end)
     end
 
     function volume:dec()
-        spawn.easy_async(DEC_VOLUME_CMD, function(stdout) update_graphic(volume.widget, stdout) end)
+        spawn.easy_async(DEC_VOLUME_CMD, function(stdout) spawn.easy_async( GET_VOLUME_CMD, function(stdout) update_graphic(volume.widget, stdout) end) end)
     end
 
     function volume:toggle()
