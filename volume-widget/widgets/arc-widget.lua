@@ -13,6 +13,7 @@ function widget.get_widget(widgets_args)
     local bg_color = args.bg_color or '#ffffff11'
     local mute_color = args.mute_color or beautiful.fg_urgent
     local size = args.size or 18
+    local max_volume = args.max_volume or 100
 
     return wibox.widget {
         {
@@ -21,7 +22,7 @@ function widget.get_widget(widgets_args)
             resize = true,
             widget = wibox.widget.imagebox,
         },
-        max_value = 100,
+        max_value = max_volume,
         thickness = thickness,
         start_angle = 4.71238898, -- 2pi*3/4
         forced_height = size,
